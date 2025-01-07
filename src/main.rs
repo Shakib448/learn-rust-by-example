@@ -1,3 +1,5 @@
+// src/main.rs
+mod my_comments;
 fn main() {
-    println!("Hello, world!");
+    comments::comment();
 }
