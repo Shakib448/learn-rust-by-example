@@ -1,4 +1,4 @@
-use std::fmt;
+use std::fmt::{self, Formatter, Display};
 
 /*
 Printing is handle by series of macros defined in std::fmt some of which are:
@@ -43,6 +43,8 @@ fn main() {
     println!("{number:0>width$}");
     dbg_fn();
     display_fn();
+    testcase_fn();
+    formatted_fn();
 }
 
 /*
@@ -137,4 +139,93 @@ fn display_fn () {
     println!("Compare points:");
     println!("Display: {}", point);
     println!("Debug: {:?}", point);
+}
+
+
+/*
+    Testcase:List
+    Implementing fmt::Display for a structure where the elements must each be handled sequentially is tricky. The problem is that each
+    write! generates a fmt::Result. Proper handling of this requires dealing with all the results. Rust provides the ? operator for exactly this purpose.
+
+    Using ? on write! looks like this:
+*/
+
+struct List(Vec<i32>);
+
+impl fmt::Display for List {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let vec = &self.0;
+
+        write!(f, "[")?;
+
+        for (count, v) in vec.iter().enumerate() {
+
+            if count != 0 {write!(f, " ")?;}
+            write!(f, "{}", v)?;
+        }
+
+        write!(f, "]")
+    }
+
+}
+
+fn testcase_fn() {
+    let v = List(vec![1, 2, 3]);
+    println!("{}", v);
+}
+
+
+/*
+    We've seen that formatting is specified via a format string:
+    format!("{}", foo) -> "3735928559"
+    format!("0x{:X}", foo) -> "0xDEADBEEF"
+    format!("0o{:o}", foo) -> "0o33653337357"
+
+    The same variable (foo) can be formatted differently depending on which argument type is used: x vs o va unspecified.
+    This formatting functionality is implemented via traits, and there is one trait for each argument type. The most common formatting
+    trait is Display, which handles cases where the argument type is left unspecified: {} for instance.
+*/
+
+
+#[derive(Debug)]
+struct City {
+    name: &'static str,
+    lat: f32,
+    lon: f32,
+}
+
+impl Display for City {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        let lat_c = if self.lat >= 0.0 { 'N' } else { 'S' };
+        let lon_c = if self.lat >= 0.0 { 'E' } else { 'W' };
+
+        write!(f, "{}: {:.3}°{} {:.3}°{}",
+               self.name, self.lat.abs(), lat_c, self.lon.abs(), lon_c)
+    }
+}
+
+#[derive(Debug)]
+struct Color {
+    rea : u8,
+    green: u8,
+    blue: u8,
+}
+
+fn formatted_fn() {
+
+    for city in [
+        City {name : "Dublin", lat: 53.347778, lon: -6.259722 },
+        City {name : "Oslo", lat: 59.95, lon: 10.75 },
+        City {name : "Vancouver", lat: 49.25, lon: -123.1 },
+    ] {
+        println!("{:#?}", city);
+    }
+
+    for color in [
+        Color { rea: 128, green: 255, blue: 90 },
+        Color { rea: 128, green: 0, blue: 90 },
+
+    ] {
+        println!("{:#?}", color);
+    }
 }
