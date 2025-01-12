@@ -117,3 +117,32 @@ fn enums() {
     inspect(load);
     inspect(unload);
 }
+
+
+/*
+Type aliases
+if you use a type alias, you can refer to each enum variant via it's alias. This might be useful if the
+enum's name is too long or too generic, and you want to rename it
+*/
+
+enum VeryVerboseEnumOfThingsToDoWithNumbers {
+    Add,
+    Subtract,
+}
+
+type Operations = VeryVerboseEnumOfThingsToDoWithNumbers;
+
+fn type_fn() {
+    let x = Operations::Add;
+}
+
+// The most common place you'll se the is in impl blocks using the Self alias.
+
+impl VeryVerboseEnumOfThingsToDoWithNumbers {
+    fn run(&self, x: i32, y: i32) -> i32 {
+        match self {
+            Self::Add => x + y,
+            Self::Subtract => x - y,
+        }
+    }
+}
