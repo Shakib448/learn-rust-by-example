@@ -86,5 +86,59 @@ fn scope_shadowing2() {
 
     let shadowed_binding = 2;
     println!("inner shadowing: {}", shadowed_binding);
+}
 
+/*
+    Declare first
+
+    It's possible to declare variable bindings first, and initialize them later. However, this from is seldom
+    used, as it may lead to use of uninitialized variables.
+
+*/
+
+fn declare_first() {
+    let a_binding;
+
+    {
+        let x = 5;
+        a_binding = x * 2;
+    }
+
+    println!("a binding: {}", a_binding);
+
+    let another_binding;
+
+    println!("another binding: {}", another_binding);
+
+    another_binding = 1;
+
+    println!("another binding: {}", another_binding);
+}
+
+
+/*
+    Freezing
+
+ When data is bound by the same name immutably, it also freezes.
+  Frozen data can't be modified until the immutable binding goes out of scope:
+
+
+*/
+
+fn freezing() {
+    let mut _mutable_integer = 7i32;
+
+    {
+        // Shadowing by immutable `_mutable_integer`
+        let _mutable_integer = _mutable_integer;
+
+        // Error! `_mutable_integer` is frozen in this scope
+        _mutable_integer = 50;
+        // FIXME ^ Comment out this line
+
+        // `_mutable_integer` goes out of scope
+    }
+
+    // Ok! `_mutable_integer` is not frozen in this scope
+    _mutable_integer = 3;
 }
