@@ -153,5 +153,30 @@ impl VeryVerboseEnumOfThingsToDoWithNumbers {
 */
 
 enum Stage {
+    Beginner,
+    Advanced,
+}
 
+enum Role {
+    Student,
+    Teacher,
+}
+
+fn use_fn() {
+    use crate::Stage::{Beginner, Advanced};
+    use crate::Role::*;
+
+    let stage = Beginner;
+
+    let role = Student;
+
+    match stage {
+        Beginner => println!("I am beginner"),
+        Advanced => println!("I am advanced"),
+    }
+
+    match role {
+        Student => println!("I am student"),
+        Teacher => println!("I am teacher"),
+    }
 }
