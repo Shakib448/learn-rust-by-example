@@ -14,6 +14,8 @@
 
 fn main() {
     variable_fn();
+    scope_shadowing();
+    scope_shadowing2();
 }
 
 fn variable_fn() {
@@ -49,5 +51,40 @@ fn mut_fn() {
     mutable_binding += 1;
     println!("After mutation: {}", mutable_binding);
 
-    _immutable_binding += 1;
+    // _immutable_binding += 1;
+}
+
+/*
+    Scope and Shadowing
+
+    Variable bindings have a scope, and are constrained to live in a block. A block is a collection of statements enclosed by braces {}.
+*/
+
+fn scope_shadowing() {
+    let long_lived_binding = 1;
+
+    {
+        let short_lived_binding = 2;
+        println!("inner short: {}", short_lived_binding);
+    }
+
+    println!("outer short: {}", long_lived_binding);
+    println!("outer long: {}", long_lived_binding);
+}
+
+fn scope_shadowing2() {
+    let shadowed_binding = 1;
+
+    {
+        println!("inner shadowing: {}", shadowed_binding);
+
+        let shadowed_binding = "abc";
+        println!("outer shadowing: {}", shadowed_binding);
+    }
+
+    println!("outer shadowing2: {}", shadowed_binding);
+
+    let shadowed_binding = 2;
+    println!("inner shadowing: {}", shadowed_binding);
+
 }
