@@ -12,7 +12,6 @@
 */
 
 
-
 fn main() {
     variable_fn();
 }
@@ -31,5 +30,24 @@ fn variable_fn() {
 
     let _unused_variable = 3u32;
 
-     let noisy_unused_variable = 2u32;
+    let noisy_unused_variable = 2u32;
+}
+
+
+/*
+    Mutability
+
+    Variable bindings are immutable by default, but this can be overridden using the mut modifier.
+*/
+
+
+fn mut_fn() {
+    let _immutable_binding = 1;
+    let mut mutable_binding = 1;
+
+    println!("Before mutation: {}", mutable_binding);
+    mutable_binding += 1;
+    println!("After mutation: {}", mutable_binding);
+
+    _immutable_binding += 1;
 }
