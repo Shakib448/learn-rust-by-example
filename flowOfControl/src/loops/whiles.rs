@@ -1,5 +1,3 @@
-
-
 /*
     While
     the while keyword can be used to run a loop while a condition is true.
@@ -7,7 +5,7 @@
 */
 
 
-pub fn run () {
+pub fn run() {
     let mut n = 1;
 
     while n < 101 {
@@ -21,7 +19,5 @@ pub fn run () {
             println!("{}", n);
         }
         n += 1;
-
     }
-
 }
