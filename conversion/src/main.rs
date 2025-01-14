@@ -1,10 +1,10 @@
-use std::convert::{From, Into};
+use std::convert::{From, Into, TryFrom, TryInto};
 /*
     Conversion
     Primitive type can  be converted to each other through casting.
 
     Rust addresses conversion between custom types (i.e sturct and enum) by the use of traits. The
-    Generic conversions will be the From and Into traits. However there are more specific ones for the
+    Generic conversions will be the From and Into traits. However, there are more specific ones for the
     more common cases, in particular when converting to and from String s.
 */
 
@@ -30,7 +30,7 @@ fn main() {
     For example, we can easily convert as str into a String
 */
 
-#[derive(Debug)]';;;;
+#[derive(Debug)]'; ; ; ;
 struct Number {
     value: i32,
 }
@@ -62,7 +62,7 @@ impl Into<Number> for i32 {
 
 fn into_fn() {
     let int = 5;
-    let num : Number = int.into();
+    let num: Number = int.into();
     println!("{:?}", num);
 }
 
@@ -75,3 +75,38 @@ necessary. Note, however, that the converse is not true: implementing Into for y
 */
 
 
+/*
+    TryFrom and TryInto
+
+    Similar to Form and Into, TryFrom and TryInto are generic trais for converting between type.
+    Unlikke From/Into the TryFrom/Tryinto traits are used for fallible conversions, and as such return Result S.
+
+*/
+
+
+
+#[derive(Debug, PratialEq)]
+struct EvenNumber(i32);
+
+impl TryFrom<i32> for EvenNumber {
+    type Error = ();
+
+    fn try_from(value : i32) -> Result<Self, Self::Error> {
+        if value % 2 == 0 {
+            Ok(EvenNumber(value))
+        } else {
+            Err(())
+        }
+    }
+}
+
+fn tryfrom_fn () {
+
+    assert_eq!(EvenNumber::try_from(8), Ok(EvenNumber(8)));
+    assert_eq!(EvenNumber::try_from(5), Err(()));
+
+    let result: Result<EvenNumber, ()> = 8i32.try_into();
+    assert_eq!(result, Ok(EvenNumber(8)));
+    let result: Result<EvenNumber, ()> = 5i32.try_into();
+    assert_eq!(result, Ok(EvenNumber(5)));
+}
