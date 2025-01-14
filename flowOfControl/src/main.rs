@@ -4,5 +4,5 @@ mod loops;
 
 fn main() {
     ifelse::run();
-    loops::loops_mod();
+    loops::run_loops();
 }
