@@ -1,12 +1,10 @@
 mod ifelse;
-mod loop_module;
-mod nesting_loop;
-mod returning_loop;
+mod loops;
 
 
 fn main() {
     ifelse::run();
-    loop_module::run();
-    nesting_loop::run();
-    returning_loop::run();
+    loops::loop_module::run();
+    loops::nesting_loop::run();
+    loops::returning_loop::run();
 }
