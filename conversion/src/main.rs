@@ -1,4 +1,7 @@
 use std::convert::{From, Into, TryFrom, TryInto};
+use std::fmt;
+use std::num::ParseIntError;
+use std::str::FromStr;
 /*
     Conversion
     Primitive type can  be converted to each other through casting.
@@ -30,7 +33,7 @@ fn main() {
     For example, we can easily convert as str into a String
 */
 
-#[derive(Debug)]'; ; ; ;
+#[derive(Debug)]
 struct Number {
     value: i32,
 }
@@ -109,4 +112,73 @@ fn tryfrom_fn () {
     assert_eq!(result, Ok(EvenNumber(8)));
     let result: Result<EvenNumber, ()> = 5i32.try_into();
     assert_eq!(result, Ok(EvenNumber(5)));
+}
+
+
+/*
+    To and form Strings
+
+    Converting to String
+    To convert any type to a String is as simple sas implementing the ToString trait for the type.
+    Rather that doing so directly, you should implement the fmt::Display trait which automatically
+    Provides ToString and also allows printing the types as discussed in the section on print!.
+*/
+
+#[derive(Debug)]
+struct Circle {
+    radius: i32,
+}
+
+impl fmt::Display for Circle {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Circle of radius {}", self.radius)
+    }
+}
+
+fn strings_fn () {
+    let circle = Circle { radius: 3 };
+    println!("{}", circle.to_string());
+}
+
+
+/*
+Parsing a String
+It's useful to convert strings into many types, butt  one of the more common string operations is to
+convert them form string to number. The idiomatic appraoch to this is to sue the parse function and either to arrange for
+type inference or to specify the type to parse using hte "turbolfish" syntax.
+
+this will convert the string into type specifed as long as the FromStr trait is implemented ofr that type. This is implemented for numerous types within the standard library.
+
+
+
+*/
+
+fn parsing_fn () {
+    let parsed: i32 = "5".parse().unwrap();
+    let turbo_parsed = "10".parse::<i32>().unwrap();
+
+    let sum = parsed + turbo_parsed;
+    println!("Sum: {}", sum);
+}
+
+
+// The obtain this functionality on a user defined type simply implement the FromStr trait for the type
+
+impl FromStr for Circle {
+    type Err = ParseIntError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.trim().parse() {
+            Ok(x) => Ok(Circle { radius: x }),
+            Err(e) => Err(e),
+        }
+    }
+}
+
+
+fn fn_prasing () {
+    let radius = "     3 ";
+    let circle : Circle = radius.parse().unwrap();
+
+    println!("{:?}", circle);
 }
