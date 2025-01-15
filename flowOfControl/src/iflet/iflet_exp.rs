@@ -3,12 +3,12 @@ if let
 For some use cases, when matching enums, match is awkward. For example:
 */
 
-fn optional_fn () {
+fn optional_fn() {
     let optional = Some(7);
 
     match optional {
-        Some(i ) => println!("This is a really long string and `{:?}`", i),
-        _ => {},
+        Some(i) => println!("This is a really long string and `{:?}`", i),
+        _ => {}
     }
 }
 
@@ -16,7 +16,7 @@ fn optional_fn () {
 
 fn fn_optional() {
     let number = Some(7);
-    let letter : Option<i32> = None;
+    let letter: Option<i32> = None;
     let emotion: Option<i32> = None;
 
     if let Some(i) = number {
@@ -45,15 +45,15 @@ fn fn_optional() {
 enum Foo {
     Bar,
     Baz,
-    Qux(u32)
+    Qux(u32),
 }
 
-fn iflet_fn () {
+fn iflet_fn() {
     let a = Foo::Bar;
     let b = Foo::Baz;
     let c = Foo::Qux(100);
 
-    if let Foo::Bar  = a {
+    if let Foo::Bar = a {
         println!("a is foobar");
     }
 
@@ -70,8 +70,28 @@ fn iflet_fn () {
     }
 }
 
-pub fn run () {
+/*
+Another benefit is that if let allows us to match no-parameterized enum variants. This is true
+event is cases where the enum doesn't implement or derive PartialEq. In such cases if Foo::Bar == a
+would fail to compile, because instances of the enum cannot be equated, however if let will continue to workk
+
+Would you like a challenge? fix the follwoing example to sue if let:
+
+*/
+#[derive(PartialEq)]
+
+enum Lul { Lol }
+fn fn_challenge() {
+    let a = Lul::Lol;
+
+    if  Lul::Lol == a {
+        println!("a is foobar");
+    }
+}
+
+pub fn run() {
     optional_fn();
     fn_optional();
     iflet_fn();
+    fn_challenge();
 }
