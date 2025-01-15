@@ -1,12 +1,12 @@
 mod ifelse;
 mod loops;
 mod match_module;
-mod iflet;
+mod logical;
 
 
 fn main() {
     ifelse::run();
     loops::run();
     match_module::run();
-    iflet::run();
+    logical::run();
 }
