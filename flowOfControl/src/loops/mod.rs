@@ -5,7 +5,7 @@
  mod whiles;
  mod for_range;
 
-pub fn run_loops () {
+pub fn run () {
     loop_module::run();
     nesting_loop::run();
     returning_loop::run();

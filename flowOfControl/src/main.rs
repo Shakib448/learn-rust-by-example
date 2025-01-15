@@ -1,8 +1,10 @@
 mod ifelse;
 mod loops;
+mod match_module;
 
 
 fn main() {
     ifelse::run();
-    loops::run_loops();
+    loops::run();
+    match_module::run();
 }
