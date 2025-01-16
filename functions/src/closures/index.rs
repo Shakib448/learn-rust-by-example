@@ -59,12 +59,13 @@ fn fun() {
         stack.pop()
     };
 
-    if let Some(popped) = pop() {
-        println!("Current value is (pop): {}", popped);
-    };
+
 
     let len = || stack.len();
 
+    if let Some(popped) = pop() {
+        println!("Current value is (pop): {}", popped);
+    };
     println!("stack : {:?}", stack);
     println!("stack length : {:?}", len());
 }
