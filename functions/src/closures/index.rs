@@ -39,6 +39,7 @@ pub fn run() {
 fn fun() {
     let mut stack: Vec<i32> = Vec::new();
 
+    // Closure to push a value onto the stack
     let mut push = |val: i32| {
         stack.push(val);
     };
@@ -47,6 +48,7 @@ fn fun() {
     push(20);
     push(30);
 
+    // Closure to peek at the top of the stack
     let mut peek = || -> Option<&i32> {
         stack.last()
     };
@@ -55,17 +57,18 @@ fn fun() {
         println!("Current value is (peek): {}", top);
     };
 
+    // Closure to pop a value from the stack
     let mut pop = || -> Option<i32> {
         stack.pop()
     };
 
-
-
-    let len = || stack.len();
-
     if let Some(popped) = pop() {
         println!("Current value is (pop): {}", popped);
     };
+
+    // Closure to get the current size of the stack
+    let len = || stack.len();
+
     println!("stack : {:?}", stack);
     println!("stack length : {:?}", len());
 }
