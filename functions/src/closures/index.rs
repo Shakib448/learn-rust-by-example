@@ -26,17 +26,16 @@ pub fn run() {
     let closure_annotated = |i: i32| -> i32 { i + outer_var };
     let closure_inferred = |i: i32| i * outer_var;
 
-
     println!("closure_annotated() -> {}", closure_annotated(10));
     println!("closure_inferred() -> {}", closure_inferred(10));
 
     let one = || 1;
 
     println!("Closure returning one: {}", one());
-    fun();
+    stack();
 }
 
-fn fun() {
+fn stack() {
     let mut stack: Vec<i32> = Vec::new();
 
     // Closure to push a value onto the stack
@@ -49,23 +48,18 @@ fn fun() {
     push(30);
 
     // Closure to pop a value from the stack
-    let mut pop = || -> Option<i32> {
-        stack.pop()
-    };
+    let mut pop = || -> Option<i32> { stack.pop() };
 
     if let Some(popped) = pop() {
         println!("Current value is (pop): {}", popped);
     };
 
     // Closure to peek at the top of the stack
-    let peek = || -> Option<&i32> {
-        stack.last()
-    };
+    let peek = || -> Option<&i32> { stack.last() };
 
     if let Some(top) = peek() {
         println!("Current value is (peek): {}", top);
     };
-
 
     // Closure to get the current size of the stack
     let len = || stack.len();
@@ -73,4 +67,3 @@ fn fun() {
     println!("stack : {:?}", stack);
     println!("stack length : {:?}", len());
 }
-
