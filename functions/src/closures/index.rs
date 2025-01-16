@@ -48,6 +48,15 @@ fn fun() {
     push(20);
     push(30);
 
+    // Closure to pop a value from the stack
+    let mut pop = || -> Option<i32> {
+        stack.pop()
+    };
+
+    if let Some(popped) = pop() {
+        println!("Current value is (pop): {}", popped);
+    };
+
     // Closure to peek at the top of the stack
     let mut peek = || -> Option<&i32> {
         stack.last()
@@ -57,14 +66,7 @@ fn fun() {
         println!("Current value is (peek): {}", top);
     };
 
-    // Closure to pop a value from the stack
-    let mut pop = || -> Option<i32> {
-        stack.pop()
-    };
 
-    if let Some(popped) = pop() {
-        println!("Current value is (pop): {}", popped);
-    };
 
     // Closure to get the current size of the stack
     let len = || stack.len();
