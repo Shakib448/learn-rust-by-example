@@ -58,14 +58,13 @@ fn fun() {
     };
 
     // Closure to peek at the top of the stack
-    let mut peek = || -> Option<&i32> {
+    let peek = || -> Option<&i32> {
         stack.last()
     };
 
     if let Some(top) = peek() {
         println!("Current value is (peek): {}", top);
     };
-
 
 
     // Closure to get the current size of the stack
