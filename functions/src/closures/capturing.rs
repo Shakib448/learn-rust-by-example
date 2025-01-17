@@ -47,6 +47,8 @@ pub fn run () {
     consume();
     // consume();
     move_fn();
+
+
 }
 
 // Using move before vertical pipes forces closure to take ownership of captured variables
