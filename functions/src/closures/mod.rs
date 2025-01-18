@@ -6,6 +6,7 @@ mod input_fn;
 mod as_output;
 
 mod iterator;
+mod searching;
 
 pub fn run() {
     index::run();
@@ -15,4 +16,5 @@ pub fn run() {
     input_fn::run();
     as_output::run();
     iterator::run();
+    searching::run();
 }
