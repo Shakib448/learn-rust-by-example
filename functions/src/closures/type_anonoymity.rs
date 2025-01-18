@@ -19,3 +19,10 @@ to the variable which is stored until calling.
 Since this new is of unknown type, any usage in a function will require generics. However, an unbounded type parameter <T> would still be
 ambiguous and not be allowed. Thus, bounding by one of the traits Fn, FnMut or FnOnce (which it implements) is sufficient to specify its type.
 */
+
+pub fn run () {
+    let x = 7;
+
+    let print = || println!("`x` is {}", x);
+    apply(print);
+}
