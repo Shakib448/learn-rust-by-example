@@ -5,6 +5,8 @@ mod type_anonoymity;
 mod input_fn;
 mod as_output;
 
+mod iterator;
+
 pub fn run() {
     index::run();
     capturing::run();
@@ -12,4 +14,5 @@ pub fn run() {
     type_anonoymity::run();
     input_fn::run();
     as_output::run();
+    iterator::run();
 }
