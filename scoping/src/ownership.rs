@@ -55,3 +55,69 @@ fn main() {
     //println!("b contains: {}", b);
     // TODO ^ Try uncommenting this line
 }
+
+/*
+Mutability
+Mutability of data can be changed when ownership is transferred.
+
+*/
+fn main() {
+    let immutable_box = Box::new(5u32);
+
+    println!("immutable_box contains {}", immutable_box);
+
+    // Mutability error
+    //*immutable_box = 4;
+
+    // *Move* the box, changing the ownership (and mutability)
+    let mut mutable_box = immutable_box;
+
+    println!("mutable_box contains {}", mutable_box);
+
+    // Modify the contents of the box
+    *mutable_box = 4;
+
+    println!("mutable_box now contains {}", mutable_box);
+}
+
+/*
+Partial moves
+Withing the destructing of a single variable, both by-move and by-reference pattern
+bindings can be used at the same time. Doing this will result ini a partial move of the
+variable, which means that parts of the variable will be moved while others parts stay. In such
+a case the parent variable cannot be used afterwards a a whole, however the parts that
+are only reference (and not moved) can still be used.
+*/
+
+fn run1() {
+    #[derive(Debug)]
+    struct Person {
+        name: String,
+        age: Box<u8>,
+    }
+
+    let person = Person {
+        name: String::from("Alice"),
+        age: Box::new(20),
+    };
+
+    // `name` is moved out of person, but `age` is referenced
+    let Person { name, ref age } = person;
+
+    println!("The person's age is {}", age);
+
+    println!("The person's name is {}", name);
+
+    // Error! borrow of partially moved value: `person` partial move occurs
+    //println!("The person struct is {:?}", person);
+
+    // `person` cannot be used but `person.age` can be used as it is not moved
+    println!("The person's age from person struct is {}", person.age);
+}
+
+/*
+In this example, wer store hte age variable on the heap illustrate the partial move: deleting ref in the
+above code would give an error as the ownership of person.age would be move to the variable
+age. if Person.age were stored on the stack, ref would not be required as the definition of age
+would copy the data from person.age without moving it)
+*/
