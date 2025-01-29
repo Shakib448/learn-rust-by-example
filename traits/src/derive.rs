@@ -55,6 +55,4 @@ fn main() {
     } else {
         "bigger"
     };
-
-    println!("One foot is {} than one meter.", cmp);
 }
