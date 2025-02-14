@@ -43,6 +43,7 @@ fn drink(beverage: &str) {
     }
 }
 
+
 fn run() {
     drink("water");
     drink("lemonade");
